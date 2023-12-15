@@ -1,0 +1,27 @@
+Illustrate
+    0. Terminology:
+        random experiment:
+            outcome - result of random exp.
+                sample space/probability space = set of all outcomes
+            event - set of outcomes + assigned probability
+        statistical hypothesis - statement about the distribution of  X
+        random variable: function of outcomes to measurable space (bits, real numbers) - discrete or continuous
+        probability distribution/ probability distribution function:
+            pmf(probability mass function) - discrete
+            pdf(probabillity density function) - continuous
+        cdf (cumulative distribution function) - P(X <= x)
+        ecdf - empirical cdf
+        one sided/two sided test - rejection located in two tails of probability distribution
+
+    0.1 scipy:
+        pmf,cdf - mass function, cumulative mass function
+        pdf,cdf - density func
+        ppf - inverse of cdf
+        rvs - random sample
+
+    1. continuous - binomial, chi2 distribution
+    2. discrete - normal, multinomial
+    3. difference between (binomial - normal), (chi2, multinomial)
+    4. p_left, p_right, p_two_tail
+    5. alpha (sig. level), power(beta), confidence interval,
+    6. KS, chi2 GoF for 1.-4. with different number of values (number of pvalues, )
