@@ -1,21 +1,26 @@
 Experiments:
+##################### Motivation part #####################
 1. Are exact p-values OK = uniform? (How to measure uniformity).
    What if n is small and we use many p-values.
    B(n, p), M(n, p) - n = ?
 
-   No sampling:
-    p-values and probabilities
-    chi2 - number of categories with minimal bias 10?
+   No sampling/theoretical:
+    p-values and probabilities => measure uniformity (p-value)
+    chi2 - chi2 for arbitrary n - TODO number of categories with minimal bias (2 or 10, or some higher number?)
+    KS - chi2 for arbitrary TODO compute KS stat ()
 
-   Sampling: n = 10, 100, 1000, 10000, 10000
-    KS -
-    chi2 -
+   Sampling:
+    chi2 -  confirm values from No sampling (confidence interval)
+    KS - confirm values from No sampling (confidence interval)
 
-2.
+2. What about approx p-values ? Are these uniform?
+    Repeat with normal, chi2
 
-Goal: how small bias of params can affect rejection.
+3. Goal: how small bias of params can affect rejection.
     B -
     N -
+
+##################### Motivation part #####################
 2.
 3.
 4.
