@@ -53,12 +53,15 @@ def multinomial_data(n=6, p=[1/3]*3):
     chi2stats_ints = np.round(np.array(chi2stats)*E) # normalized to ints
 
     #sorting according chi2stats
+    # print(*zip(chi2stats_ints, sample_space, outcomes_probs), sep='\n')
     idx = np.argsort(chi2stats_ints)
     chi2stats_ints = chi2stats_ints[idx]
     sample_space = sample_space[idx]
     outcomes_probs = outcomes_probs[idx]
+    # print(*zip(chi2stats_ints, sample_space, outcomes_probs), sep='\n')
     res['outcomes'] = sample_space
     res['pmf'] = outcomes_probs
+
 
     # outcome to event grouping (according to chi2stat)
     event_probs = {}
@@ -73,44 +76,44 @@ def multinomial_data(n=6, p=[1/3]*3):
         else:
             event_probs[chi2stat_int] += prob
             samples[chi2stat_int].append(sample)
-
     x = np.array(list(event_probs.keys())) / E
     res['events'] = x
-    res['event_pmf'] = np.array(list(event_probs.values()))
+    res['events_pmf'] = np.array(list(event_probs.values()))
     res['samples'] = samples.values()
 
-    res['less'] = np.cumsum(res['event_pmf'])
-    res['greater'] = np.array([1] * len(x)) - res['less'] + res['event_pmf']
+    res['less'] = np.cumsum(res['events_pmf'])
+    res['greater'] = np.array([1] * len(x)) - res['less'] + res['events_pmf']
     res['two-sided'] = np.array([pvalue2(pLeft, pRight) for pLeft, pRight in zip(res['less'], res['greater'])])
-
     return res
+
 def chi2_data(x = 10, df=2):
     res = {}
     if type(x) == int:
         x = np.arange(0, x + 1)
     else:
         x = np.array(x)
-    res['outcomes'] = x
-    res['pdf'] = np.array(chi2.pdf(x, df))
+    res['events'] = x
+    res['events_pdf'] = np.array(chi2.pdf(x, df))
     res['less'] = np.array(chi2.cdf(x, df))
     res['greater'] = np.array([1]*len(x)) - res['less']
     res['two-sided'] = 2*np.minimum(res['less'], res['greater'])
     return res
 
 
-# binomial vs normal
-n = 98 # number of trials
-p = 0.4 # probability of success
-B = binomial_data(n=n, p=p)
-N = normal_data(x=np.arange(0, n+1), mean=n*p, std=math.sqrt(n*p*(1-p)))
+if __name__ == '__main__':
+    # binomial vs normal
+    n = 98 # number of trials
+    p = 0.4 # probability of success
+    B = binomial_data(n=n, p=p)
+    N = normal_data(x=np.arange(0, n+1), mean=n*p, std=math.sqrt(n*p*(1-p)))
 
-# chi2 vs multinomial
-num_bins = 3
-df = num_bins - 1
-p = [1/num_bins]*num_bins
+    # chi2 vs multinomial
+    num_bins = 3
+    df = num_bins - 1
+    p = [1/num_bins]*num_bins
 
-M = multinomial_data(n=39, p=p)
-x = M['events']
-Ch = chi2_data(x=x, df=df)
+    M = multinomial_data(n=39, p=p)
+    x = M['events']
+    Ch = chi2_data(x=x, df=df)
 
 
