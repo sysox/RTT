@@ -1,27 +1,97 @@
-Illustrate
-    0. Terminology:
-        random experiment:
-            outcome - result of random exp.
-                sample space/probability space = set of all outcomes
-            event - set of outcomes + assigned probability
-        statistical hypothesis - statement about the distribution of  X
-        random variable: function of outcomes to measurable space (bits, real numbers) - discrete or continuous
-        probability distribution/ probability distribution function:
-            pmf(probability mass function) - discrete
-            pdf(probabillity density function) - continuous
-        cdf (cumulative distribution function) - P(X <= x)
-        ecdf - empirical cdf
-        one sided/two sided test - rejection located in two tails of probability distribution
+0. Terminology:
+    random experiment:
+        outcome - result of random exp.
+            sample space/probability space = set of all outcomes
+        event - set of outcomes + assigned probability
+    statistical hypothesis - statement about the distribution of  X
+    random variable: function of outcomes to measurable space (bits, real numbers) - discrete or continuous
+    probability distribution/ probability distribution function:
+        pmf(probability mass function) - discrete
+        pdf(probabillity density function) - continuous
+    cdf (cumulative distribution function) - P(X <= x)
+    ecdf - empirical cdf
+    one sided/two sided test - rejection located in two tails of probability distribution
 
-    0.1 scipy:
-        pmf,cdf - mass function, cumulative mass function
-        pdf,cdf - density func
-        ppf - inverse of cdf
-        rvs - random sample
+0.1 scipy:
+    pmf,cdf - mass function, cumulative mass function
+    pdf,cdf - density func
+    ppf - inverse of cdf
+    rvs - random sample
 
-    1. continuous - binomial, chi2 distribution
-    2. discrete - normal, multinomial
-    3. difference between (binomial - normal), (chi2, multinomial)
-    4. p_left, p_right, p_two_tail
-    5. alpha (sig. level), power(beta), confidence interval,
-    6. KS, chi2 GoF for 1.-4. with different number of values (number of pvalues, )
+1. Common statistic dists used in randomness testing(RT):
+    Binomial(discrete)  - approximated by continuous normal
+        - example of confidence interval TODO?? image
+    Multinomial(discrete) -  approximated by continuous chi2
+    Exact p-value vs approximated -  TODO images showing diffs of p-values
+        B vs N
+        M vs Chi2
+2. Common GoFs used in RT:
+    KS - Dieharder, TestU01  in some form (AD)
+    Chi2 - NIST (10 bins)
+
+3. Approach:
+    Y stat = count something:
+     one thing - dist binomial (rarely uniform, poisson, exponential)
+     more things - dist multinomial
+
+     Theory: Y(random seq)      => binomial B(k, n, p) => approximated N(mean, std)
+                                   or multinomial                      Chi2(df)
+     Practice:
+         Y(seq_1) = y_1    approx   p_1
+         ...                =>      ...     => GoF(KS or Chi2) => P-val
+         Y(seq_N) = y_N             p_N
+        TODO image ??
+4. Errors:
+   Theory (papers):
+     a) incorrect params of discrete Y:
+         n - length of sequence (bits, [0, 1] numbers)
+         B: defined by n, p(prob of success for random data)
+         M: defined by n, (p_1, ..., p_k)
+
+     b) incorrect params of continuous approx Y_approx of Y
+        N(mean, std)
+        Chi2(df)
+     c) Not appropriate recommendations on params (e.g. small required n)
+
+
+   Practice(Implementation):
+      a) Incorrect computation of Y
+        B, M: counting of successes (e.g. overlapping categories)
+              normalization to:
+              Chi2   - bad (e.g. rounded) expected freqs
+              Normal - bad (e.g. rounded std, mean) params
+      b) Incorrect computation of corresponding 1st level p-value
+         bad function or params:
+          gsl_sf_gamma_inc_Q(double a, double x) - chi2 is special case of Gamma dist (chi2 with k df. chi2 ~ Gamma(k/2, 2))
+                                                   https://stats.stackexchange.com/questions/574027/chi-square-fit-fitting-data-to-a-straight-line-incomplete-gamma-function-as-go
+            igamc (N/2, χ2(obs)/2) - half normal (??)
+          gsl_cdf_gaussian_P(double x, double sigma)
+            erfc(z) = normal cdf (NIST)
+
+      c) Incorrect computation of Y stat  (KS, AD, CvM, Chi2)
+         KS (dieharder) - bad implementation of kstest (D+ ??)
+         chi2 (10 categories) - bad expected freqs or bad manipulation with extreme first level p-values {0, 1}
+         TestU01 2 tests only (chi2, AD)
+
+      d) Incorrect computation of corresponding 2st level p-value
+         ??
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Implementation
+
+4. p_left, p_right, p_two_tail
+5. alpha (sig. level), power(beta), confidence interval,
+6. KS, chi2 GoF for 1.-4. with different number of values (number of pvalues, )
