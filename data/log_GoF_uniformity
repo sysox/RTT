@@ -1,0 +1,54 @@
+Gof_test_name   sample_size     time_for_10^6_repetitions
+dieharder_pvalue 10 1.4404444694519043
+dieharder_pvalue_kuiper 10 1.532135009765625
+nist_pvalue 10 1.4709432125091553
+testu01_pvalue_snpair_ClosePairs 10 1.4202258586883545
+testu01_pvalue_sknuth_MaxOft 10 1.912268877029419
+testu01_pvalue_ksp 10 1.3669586181640625
+testu01_pvalue_ksm 10 1.3446481227874756
+testu01_pvalue_ks 10 1.5364861488342285
+testu01_pvalue_ad 10 1.9148554801940918
+testu01_pvalue_cm 10 1.3162798881530762
+testu01_pvalue_wg 10 1.3514459133148193
+testu01_pvalue_wu 10 1.353111743927002
+dieharder_pvalue 100 5.169702768325806
+dieharder_pvalue_kuiper 100 1.4564611911773682
+nist_pvalue 100 1.4575066566467285
+testu01_pvalue_snpair_ClosePairs 100 1.464069128036499
+testu01_pvalue_sknuth_MaxOft 100 1.4661588668823242
+testu01_pvalue_ksp 100 1.6886420249938965
+testu01_pvalue_ksm 100 1.7430546283721924
+testu01_pvalue_ks 100 1.6067287921905518
+testu01_pvalue_ad 100 1.459181785583496
+testu01_pvalue_cm 100 1.3889870643615723
+testu01_pvalue_wg 100 1.4446346759796143
+testu01_pvalue_wu 100 1.7555491924285889
+dieharder_pvalue 1000 195.08847379684448
+dieharder_pvalue_kuiper 1000 9.827957391738892
+nist_pvalue 1000 9.998092651367188
+testu01_pvalue_snpair_ClosePairs 1000 16.952704429626465
+testu01_pvalue_sknuth_MaxOft 1000 13.18282437324524
+testu01_pvalue_ksp 1000 22.75475835800171
+testu01_pvalue_ksm 1000 24.213398694992065
+testu01_pvalue_ks 1000 26.30464005470276
+testu01_pvalue_ad 1000 29.14646291732788
+testu01_pvalue_cm 1000 56.3943817615509
+testu01_pvalue_wg 1000 12.090107202529907
+testu01_pvalue_wu 1000 7.759098529815674
+dieharder_pvalue 10000 109.18361306190491
+dieharder_pvalue_kuiper 10000 110.84817028045654
+nist_pvalue  Process finished with exit code 9
+
+repetead from this point: (generator seeded with default seed
+=> results different than when executed all in one run / not two)
+
+nist_pvalue 10000 107.73842120170593
+testu01_pvalue_snpair_ClosePairs 10000 146.2662935256958
+testu01_pvalue_sknuth_MaxOft 10000 149.4896981716156
+testu01_pvalue_ksp 10000 128.92424654960632
+testu01_pvalue_ksm 10000 132.5765564441681
+testu01_pvalue_ks 10000 119.50441265106201
+testu01_pvalue_ad 10000 146.431316614151
+testu01_pvalue_cm 10000 84.20545744895935
+testu01_pvalue_wg 10000 85.38287353515625
+testu01_pvalue_wu 10000 86.76625084877014
