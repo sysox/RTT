@@ -1,5 +1,4 @@
 import math
-
 import numpy as np
 from itertools import product
 from collections import Counter
@@ -28,7 +27,7 @@ def subset_sum_rec(subset_size, target_sum, numbers, partial=[], partial_sum=0, 
         yield from subset_sum_rec(subset_size, target_sum, remaining, partial + [n], partial_sum + n, partial_len + 1)
 def subset_sum(subset_size, target_sum, numbers = None, repeat = False):
     if numbers == None:
-        numbers = list(range(target_sum+1))
+        numbers = list(range(0, target_sum+1))
 
     if target_sum == None:
         target_sum = subset_size
@@ -38,31 +37,40 @@ def subset_sum(subset_size, target_sum, numbers = None, repeat = False):
     else:
         yield from subset_sum_rec(subset_size, target_sum, numbers)
 
-
-
-def vector_permutations(vector):
+def num_unique_vec_perms(vector):
     hist = Counter(vector)
     return factorial(len(vector)) // math.prod(map(factorial, hist.values()))
+def multinomial_coeffs(lst):
+    res, i = 1, sum(lst)
+    i0 = lst.index(max(lst))
+    for a in lst[:i0] + lst[i0+1:]:
+        for j in range(1,a+1):
+            res *= i
+            res //= j
+            i -= 1
+    return res
 
+def histogram(bin_edges, values):
+    sorted_vals = sorted(values)
+    freqs = [0]*len(bin_edges)
+    idx = 0
+    for val in sorted_vals:
+        if val > bin_edges[idx]:
+            while(val > bin_edges[idx]):
+                idx += 1
+                if idx > len(bin_edges) - 1:
+                    print(f"value {val} not in bin_edges {bin_edges[-3:]}")
 
-
+        freqs[idx] += 1
+    return dict(zip(bin_edges, freqs))
 
 if __name__ == "__main__":
-    print(vector_permutations([1,1, 2,2]))
+    print(num_unique_vec_perms([1,1, 2,2]))
     # t0 = time.time()
-    # print(len(list(subset_sum(4,100, repeat=True))))
+    print(list(subset_sum(4,8, repeat=True)))
     # t1 = time.time()
     # print(t1-t0)
 
 
 
 # not used yet
-# def multinomial_coeffs(lst):
-#     res, i = 1, sum(lst)
-#     i0 = lst.index(max(lst))
-#     for a in lst[:i0] + lst[i0+1:]:
-#         for j in range(1,a+1):
-#             res *= i
-#             res //= j
-#             i -= 1
-#     return res
